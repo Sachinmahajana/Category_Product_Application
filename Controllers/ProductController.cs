@@ -14,20 +14,6 @@ namespace CategoryApplication.Controllers
     {
         private AppDbContext db = new AppDbContext();
 
-        //public ActionResult Index(int page = 1, int pageSize = 5)
-        //{
-        //    var products = db.Products.Include(p => p.Category)
-        //                        .OrderBy(p => p.ProductId)
-        //                        .Skip((page - 1) * pageSize)
-        //                        .Take(pageSize)
-        //                        .ToList();
-
-        //    ViewBag.Page = page;
-        //    ViewBag.PageSize = pageSize;
-        //    ViewBag.TotalCount = db.Products.Count();
-
-        //    return View(products);
-        //}
         public ActionResult Index(int page = 1, int pageSize = 5)
         {
             var products = db.Products.Include(p => p.Category)
