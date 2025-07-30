@@ -1,0 +1,35 @@
+﻿@model CategoryApplication.Models.Category
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    <div>
+        @{
+            ViewBag.Title = "Edit Category";
+        }
+
+        <h2>Edit Category</h2>
+        @using (Html.BeginForm())
+        {
+            @Html.HiddenFor(model => model.CategoryId)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CategoryName)
+                @Html.TextBoxFor(model => model.CategoryName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryName)
+            </div>
+
+            <button type="submit" class="btn btn-success">Update</button> 
+             @Html.ActionLink("Back to List", "Index");
+         }
+    </div>
+</body>
+</html>

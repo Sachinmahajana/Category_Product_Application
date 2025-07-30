@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CategoryApplication.Models.Category>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        @{
+            ViewBag.Title = "Category List";
+        }
+        <h2>Categories</h2>
+        <p>@Html.ActionLink("Create New", "Create")</p>
+
+        <table class="table">
+            <tr>
+                <th>Category ID</th>
+                <th>Category Name</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CategoryId</td>
+                    <td>@item.CategoryName</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })
+                    </td>
+                </tr>
+             }
+        </table>
+    </div>
+</body>
+</html>

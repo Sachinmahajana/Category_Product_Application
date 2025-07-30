@@ -1,0 +1,86 @@
+﻿@model IEnumerable<CategoryApplication.Models.Product>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <div>
+        @{
+            ViewBag.Title = "Product List";
+            int page = ViewBag.Page;
+            int pageSize = ViewBag.PageSize;
+            int total = ViewBag.TotalCount;
+            int totalPages = (int)Math.Ceiling((double)total / pageSize);
+        }
+
+        <h2>Products</h2>
+        <p>@Html.ActionLink("Create New Product", "Create",null, new { @class="btn btn-success mb-3" })</p>
+
+        <!-- Page Size Selector -->
+        <form method="get" action="@Url.Action("Index", "Product")">
+            <label for="pageSize">Page Size:</label>
+            <select name="pageSize" onchange="this.form.submit()">
+                <option value="5" @(pageSize == 5 ? "selected" : "")>5</option>
+                <option value="10" @(pageSize == 10 ? "selected" : "")>10</option>
+                <option value="20" @(pageSize == 20 ? "selected" : "")>20</option>
+            </select>
+            <input type="hidden" name="page" value="1" />
+        </form>
+
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Category ID</th>
+                <th>Category Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductId</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.CategoryId</td>
+                    <td>@item.Category.CategoryName</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }, new { @class="btn btn-sm btn-primary"}) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ProductId }, new { @class="btn btn-sm btn-danger ml-1"})
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <!-- Pagination -->
+        <div>
+            <nev>
+                <ul class="pagination">
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                if (i == page)
+                {
+                    <li class="page-item active">
+                        <span class="page-link">@i</span>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                       @Html.ActionLink(i.ToString(), "Index", new { page = i, pageSize = pageSize },new { @class="page-link"})
+                     </li>
+                }
+            }
+                </ul>
+                </nev>
+        </div>
+    </div>
+</body>
+</html>

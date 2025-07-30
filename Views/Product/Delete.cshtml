@@ -1,0 +1,34 @@
+﻿@model CategoryApplication.Models.Product
+@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Delete Product";
+    Layout = null; // Or use your layout: "~/Views/Shared/_Layout.cshtml"
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <div>
+        <h2>Delete Confirmation</h2>
+        <div>
+            <p><strong>Product Name:</strong> @Model.ProductName</p>
+            <p><strong>Category Name:</strong> @Model.Category?.CategoryName</p>
+
+            @using (Html.BeginForm("Delete", "Product", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.ProductId)
+
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+            }
+        </div>
+    </div>
+</body>
+</html>
